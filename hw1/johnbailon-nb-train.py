@@ -10,7 +10,7 @@ writeFileName = 'weights'
 # Load the dataset
 with open(Path(__file__).resolve().parent / dir / readFileName, 'r') as file: df = pd.read_csv(file)
 
-# Split data by diagnosis (D = + for diabetes, D = - for no diabetes)
+# Partition data by variable and disease state (ie glucose/bp and diabetes/no diabetes)
 glucose_pos = df[df['diabetes'] == 1]['glucose']
 glucose_neg = df[df['diabetes'] == 0]['glucose']
 bp_pos = df[df['diabetes'] == 1]['bloodpressure']
@@ -28,17 +28,23 @@ var_glu_neg = glucose_neg.var()
 var_bp_pos = bp_pos.var()
 var_bp_neg = bp_neg.var()
 
+# Priors
+prior_pos = df[df['diabetes'] == 1].shape[0] / len(df)
+prior_neg = df[df['diabetes'] == 0].shape[0] / len(df)
+
 # Output
 print(f'Mean D+:{mean_glu_pos} Var D+:{var_glu_pos}')
 print(f'Mean D-:{mean_glu_neg} Var D-:{var_glu_neg}')
 print(f'Mean BP+:{mean_bp_pos} Var BP+:{var_bp_pos}')
 print(f'Mean BP-:{mean_bp_neg} Var BP-:{var_bp_neg}')
+print(f'Diabetes+:{prior_pos} Diabetes-:{prior_neg}')
 
 output = [
     mean_glu_pos, var_glu_pos, 
     mean_glu_neg, var_glu_neg,
     mean_bp_pos, var_bp_pos, 
-    mean_bp_neg, var_bp_neg
+    mean_bp_neg, var_bp_neg,
+    prior_pos, prior_neg
 ] 
 
 # Save to txt file
