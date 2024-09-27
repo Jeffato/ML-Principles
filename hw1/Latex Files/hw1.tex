@@ -19,16 +19,67 @@
 
 \section{Right Choice for Empirical Metric}
 
-\subsection{How to create Sections and Subsections}
+\subsection{Precision Rate}
+\subsection{Recall Rate}
+\subsection{Problems with Precision and Recall}
 
 \section{Galton Board}
 
+\subsection{Level Sample Spaces}
+\subsection{Sample Space}
+\subsection{Meaning of L_G}
+\subsection{Random Variable Mapping}
+\subsection{Probability Mass Function and Central Limit Theorem}
+
 \section{Bayes Rule}
+
+From the problem statement, there are a few probabilities directly given. We know that the plant has an 20\% chance to die if properly watered and an 80\% chance to die if improperly watered. The probability our friend will forget to water the plant is 30\%.
+
+\[P(Die | Water) = 0.7\]
+\[P(Die | \neg Water) = 0.3\]
+\[P(Water) = 0.7\]
+\[P(\neg Water) = 1 - P(Water) = 0.3\]
+
+\subsection{Plant Survival}
+The probability that our plant will survive the end of the week can be derived using the law of total probability. We sum up the chance the plant survives given that our friend watered it and if our friend doesn't water it
+
+\[P(\neg Die) = 1 - ( P(Die | Water) * P(Water) + P(Die | \neg Water) * P(Water) ) \]
+\[P(\neg Die) = 1 - (0.2*0.7) + (0.8*0.3) = 0.62 \]
+
+\vspace{10mm}
+\noindent
+Our plant has a 62\% chance of surviving the week.
+
+\subsection{Friend Forgets to Water}
+Put another way, this question asks what is the chance the plant is dead given our friend  This probability was described in the problem statement.
+
+\[P(Die | \neg Water) = 0.3\]
+
+\subsection{Dead Plant, Forgetful Friend?}
+This question asks the opposite of 3.2. It asks what is the chance our friend forgot to water the plant given that the plant is dead. We can derive this using Bayes Rule.
+
+\[P(\neg Water | Die) = \frac{P(Die | \neg Water) * P(\neg Water)}{P(Die)} = \frac{(0.8*0.3)}{(1-0.62)} = 0.63\]
+
+Given that our plant is dead, the chance our friend forgot to water it is 63\%.
 
 \section{Naive Bayes}
 
+\subsection{Model Equation}
+\subsection{Modeling}
+
+See attached code
+
+\subsection{Evaluating the Model}
+\subsection{Standardization}
+\subsection{Model Reflection}
+
 \section{Data Whitening}
+
+\subsection{Expressions}
+\subsection{Whitening}
 
 \section{ML and MAP Estimation}
 
-\end{document}
+\subsection{}
+\subsection{}
+\subsection{}
