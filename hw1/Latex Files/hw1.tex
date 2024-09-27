@@ -43,7 +43,7 @@ From the problem statement, there are a few probabilities directly given. We kno
 \subsection{Plant Survival}
 The probability that our plant will survive the end of the week can be derived using the law of total probability. We sum up the chance the plant survives given that our friend watered it and if our friend doesn't water it
 
-\[P(\neg Die) = 1 - ( P(Die | Water) * P(Water) + P(Die | \neg Water) * P(Water) ) \]
+\[P(\neg Die) = 1 - ( P(Die | Water) * P(Water) + P(Die | \neg Water) * P(\neg Water) ) \]
 \[P(\neg Die) = 1 - (0.2*0.7) + (0.8*0.3) = 0.62 \]
 
 \vspace{10mm}
