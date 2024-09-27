@@ -71,6 +71,6 @@ def main():
     y_test = testData['diabetes']
     accuracy = classifier.evaluate(x_test, y_test)
     
-    print(f"Model Accuracy is: {accuracy}")
+    print(f"Model Accuracy on test set: {accuracy*100:.2f}%")
 
 main()

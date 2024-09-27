@@ -2,10 +2,11 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-# File path constants
+# Constant
 dir = 'DiabetesData'
 readFileName = 'train.csv'
 writeFileName = 'weights'
+saveFlag = False
 
 # Load the dataset
 with open(Path(__file__).resolve().parent / dir / readFileName, 'r') as file: df = pd.read_csv(file)
@@ -32,13 +33,6 @@ var_bp_neg = bp_neg.var()
 prior_pos = df[df['diabetes'] == 1].shape[0] / len(df)
 prior_neg = df[df['diabetes'] == 0].shape[0] / len(df)
 
-# Output
-print(f'Mean D+:{mean_glu_pos} Var D+:{var_glu_pos}')
-print(f'Mean D-:{mean_glu_neg} Var D-:{var_glu_neg}')
-print(f'Mean BP+:{mean_bp_pos} Var BP+:{var_bp_pos}')
-print(f'Mean BP-:{mean_bp_neg} Var BP-:{var_bp_neg}')
-print(f'Diabetes+:{prior_pos} Diabetes-:{prior_neg}')
-
 output = [
     mean_glu_pos, var_glu_pos, 
     mean_glu_neg, var_glu_neg,
@@ -47,5 +41,13 @@ output = [
     prior_pos, prior_neg
 ] 
 
+# Checking output if we aren't saving
+if not saveFlag:
+    print(f'Mean glu, D+:{mean_glu_pos} Var glu, D+:{var_glu_pos}')
+    print(f'Mean glu, D-:{mean_glu_neg} Var glu, D-:{var_glu_neg}')
+    print(f'Mean BP, D+:{mean_bp_pos} Var BP, D+:{var_bp_pos}')
+    print(f'Mean BP, D-:{mean_bp_neg} Var BP, D-:{var_bp_neg}')
+    print(f'Diabetes+:{prior_pos} Diabetes-:{prior_neg}')
+
 # Save to txt file
-np.savetxt(writeFileName, output)
+if saveFlag: np.savetxt(writeFileName, output)
