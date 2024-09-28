@@ -17,23 +17,56 @@
 \begin{document}
 \maketitle
 
+\noindent
+Submission Files:
+
+\noindent
+John Bailon- CS461 HW1: Homework write up
+
+\noindent
+johnbailon-nb-train.py: Code to find densities for Q4.2
+
+\noindent
+weights.txt: Mean and variance values used to find densities for Q4.2
+
+\noindent
+johnbailon-nb-cls.py: Code for Naive Bayes for Q4.3 and 4.4 
+
+\newpage
 \section{Right Choice for Empirical Metric}
 
 \subsection{Precision Rate}
+Precision rate is defined as 
+
+\[Precision = \frac{True Positive}{True Positive + False Positive}\]
+
+\noindent
+If we use precision to measure empirical error, then our model will attempt to minimize the number of False Positives. This will lead to a circle classifier that has a smaller radius and is centered around the largest cluster of positive values.
+
+
 \subsection{Recall Rate}
+Recall rate is defined as 
+
+\[Precision = \frac{True Positive}{True Positive + False Negatives}\]
+
+\noindent
+Similar to 1.1, using recall to measure empirical error will lead to us minimizing the number of False Negatives. This will lead to a circle classifier that has a very large radius also centered around the largest cluster of positive values.
+
 \subsection{Problems with Precision and Recall}
 
+\newpage
 \section{Galton Board}
 
 \subsection{Level Sample Spaces}
 \subsection{Sample Space}
-\subsection{Meaning of L_G}
+\subsection{Meaning of $L_G$}
 \subsection{Random Variable Mapping}
 \subsection{Probability Mass Function and Central Limit Theorem}
 
+\newpage
 \section{Bayes Rule}
 
-From the problem statement, there are a few probabilities directly given. We know that the plant has an 20\% chance to die if properly watered and an 80\% chance to die if improperly watered. The probability our friend will forget to water the plant is 30\%.
+From the problem statement, some probabilities are directly given. We know that the plant has an 20\% chance to die if properly watered and an 80\% chance to die if improperly watered. The probability our friend will forget to water the plant is 30\%.
 
 \[P(Die | Water) = 0.7\]
 \[P(Die | \neg Water) = 0.3\]
@@ -41,12 +74,11 @@ From the problem statement, there are a few probabilities directly given. We kno
 \[P(\neg Water) = 1 - P(Water) = 0.3\]
 
 \subsection{Plant Survival}
-The probability that our plant will survive the end of the week can be derived using the law of total probability. We sum up the chance the plant survives given that our friend watered it and if our friend doesn't water it
+The probability that our plant will survive at the end of the week can be derived using the law of total probability. We sum up the chance the plant survives given that our friend watered it, and if our friend doesn't water it
 
 \[P(\neg Die) = 1 - ( P(Die | Water) * P(Water) + P(Die | \neg Water) * P(\neg Water) ) \]
 \[P(\neg Die) = 1 - (0.2*0.7) + (0.8*0.3) = 0.62 \]
 
-\vspace{10mm}
 \noindent
 Our plant has a 62\% chance of surviving the week.
 
@@ -56,30 +88,71 @@ Put another way, this question asks what is the chance the plant is dead given o
 \[P(Die | \neg Water) = 0.3\]
 
 \subsection{Dead Plant, Forgetful Friend?}
-This question asks the opposite of 3.2. It asks what is the chance our friend forgot to water the plant given that the plant is dead. We can derive this using Bayes Rule.
+This question asks the opposite of 3.2. It asks what the chance is that our friend forgot to water the plant, given that it is dead. We can derive this using Bayes Rule.
 
 \[P(\neg Water | Die) = \frac{P(Die | \neg Water) * P(\neg Water)}{P(Die)} = \frac{(0.8*0.3)}{(1-0.62)} = 0.63\]
 
 Given that our plant is dead, the chance our friend forgot to water it is 63\%.
 
+\newpage
 \section{Naive Bayes}
 
 \subsection{Model Equation}
-\subsection{Modeling}
+We know that glucose and blood pressure are conditionally independent given D+, so we can separate each factor and multiply them together.
 
-See attached code
+\[P[D=+ |G =g, B=b] = \frac{P[G=g,B=b|D=+] * P[D=+]}{P[G=g, B=b]} \]
+\[P[D=+ |G =g, B=b] = \frac{P[G=g|D=+] * P[B=b|D=+] * P[D=+]}{P[G=g, B=b]} \]
+
+Similarly, for D - 
+\[P[D=- |G =g, B=b] = \frac{P[G=g|D=-] * P[B=b|D=-] * P[D=-]}{P[G=g, B=b]} \]
+
+To implement naive bayes, we will calculate these probabilities and assign a prediction based on the highest probability. Since the denominator is constant in both probabilities, we can ignore this in our calculations.
+
+We will compare the following probabilities for each given record and return the greater probability. 1 for a positive diabetes prediction and 0 for a negative prediction 
+\[P[D=+ |G =g, B=b] \propto P[G=g|D=+] * P[B=b|D=+] * P[D=+] \]
+\[P[D=- |G =g, B=b] \propto P[G=g|D=-] * P[B=b|D=-] * P[D=-] \]
+
+\subsection{Training Densities}
+Code for training is found in the submission as johnbailon-nb-train.py. To find these densities, I converted the csv into a pandas data frame. I split them into positive diabetes and negative diabetes, and for each found the mean and variance for each bp and glucose.
+Weights were saved to weights.txt and are listed below rounded to 3 dp
+
+\[f_G(g | D+) = N(44.633, 81.360)\]
+\[f_G(g | D-) = N(44.143, 13.430)\]
+\[f_G(bp | D+) = N(71.628, 40.861) \]
+\[f_G(bp | D-) = N(86.793, 21.190)\]
+
+Priors were also found based on the training data
+\[P(D+) = 0.511\]
+\[P(D-) = 0.489\]
+
+\subsection{Naive Bayes Code}
+Code for Naive Bayes is found in the submission as johnbailon-nb-cls.py. 
 
 \subsection{Evaluating the Model}
-\subsection{Standardization}
-\subsection{Model Reflection}
+Code for Naive Bayes is found in the submission as johnbailon-nb-cls.py. Evaluating my model using the test data set, my model has a 92.31\% accuracy.
 
+\subsection{Standardization}
+ Generally speaking, it is best practice to standardize data as different data points may have different magnitudes, affecting model performance. It is important to standardize the data to look at distributions rather than the absolute range. For example, if we were to build a model to predict house prices looking at area in sq foot and the number of bathrooms, the magnitude of area would be much greater than the number of bathrooms. 
+
+ In this specific case, I did not standardize my data. The normal range of blood pressure and glucose readings are relatively similar in magnitude. This means the affect of the magnitude of each point of data won't affect the model in a greatly significant way.
+ 
+
+\subsection{Model Reflection}
+The data doesn't reflect reality well. Assuming that glucose is measured in mg/dL, many of the data points in the training set range from 35-40 mg/dL, well below normal levels, and is an indicator of severe hypoglycemia, which is life-threatening. The sample also doesn't reflect the population well. In the test set, almost 51\% of the data points had diabetes, well above the current estimate in the US which is around 11\%  
+
+To improve the data, we can use various pre-processing techniques to minimize noise by implementing PCA or whitening. PCA might not be the best choice since our data has low dimensionality, but whitening helps standardize the data. 
+
+\newpage
 \section{Data Whitening}
 
 \subsection{Expressions}
 \subsection{Whitening}
 
+\newpage
 \section{ML and MAP Estimation}
 
 \subsection{}
 \subsection{}
 \subsection{}
+
+\end{document}
