@@ -32,7 +32,6 @@ weights.txt: Mean and variance values used to find densities for Q4.2
 \noindent
 johnbailon-nb-cls.py: Code for Naive Bayes for Q4.3 and 4.4 
 
-\newpage
 \section{Right Choice for Empirical Metric}
 
 \subsection{Precision Rate}
@@ -43,6 +42,12 @@ Precision rate is defined as
 \noindent
 If we use precision to measure empirical error, then our model will attempt to minimize the number of False Positives. This will lead to a circle classifier that has a smaller radius and is centered around the largest cluster of positive values.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.35\linewidth]{Precision Figure.png}
+\end{figure}
+
+In the above example, the precision rate will minimize the number of false positives. This constricts the circle tightly around the greatest cluster to avoid including negative results within the circle at the expense of missing true positives.
 
 \subsection{Recall Rate}
 Recall rate is defined as 
@@ -50,9 +55,23 @@ Recall rate is defined as
 \[Precision = \frac{True Positive}{True Positive + False Negatives}\]
 
 \noindent
-Similar to 1.1, using recall to measure empirical error will lead to us minimizing the number of False Negatives. This will lead to a circle classifier that has a very large radius also centered around the largest cluster of positive values.
+Similar to 1.1, using recall to measure empirical error will lead to us minimizing the number of False Negatives. This will lead to a circle classifier that has a very large radius and is also centered around the largest cluster of positive values.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.35\linewidth]{Recall Figure.png}
+\end{figure}
+
+In the above example, we see that the recall rate minimizes false negatives, expanding the radius of the circles to capture as many positives as possible and also capturing negatives in the process.
+\newpage
 \subsection{Problems with Precision and Recall}
+The main problem with precision is that it ignores false negatives, and for recall, it ignores false positives. Precision only looks to minimize false positives and thus constricts the radius smaller to avoid capturing false positives. But this leads to positives that lie outside of the cirlce. Similarly, recall minimizes false negatives and expands the radius to ensure it captures all positives. But this also captures more negatives in the process.
+
+To avoid these, we can combine precision and recall to balance the weight of false positives and false negatives in our model. Instead, we can minimize a metric like the F1 score, which takes into account both precision and recall.
+
+\[F_1 = 2 * \frac{Precision * Recall}{Precision + Recall}\]
+
+While this wont minimize false positives or false negatives equally, it is a balance between the two to ensure that we aren't overly restrictive or overly loose in our classifier.
 
 \newpage
 \section{Galton Board}
