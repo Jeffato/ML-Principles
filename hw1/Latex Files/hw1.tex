@@ -221,7 +221,29 @@ To improve the data, we can use various pre-processing techniques to minimize no
 \section{Data Whitening}
 
 \subsection{Expressions}
+
+Subbing in E[Y]
+
+\[E[Y] = E[AX + b]\]
+
+We can pull out A and B since they are constants
+
+\[E[Y] = AE[X] + b\]
+
+Next looking at Cov(Y,Y)
+
+\[Cov[Y,Y] = Cov[AX+b,AX+b]\]
+
+We can drop b since it is a constant that won't affect covariance.
+
+\[Cov[Y,Y] = Cov[AX,AX]\]
+
+Then using the linearity of expectations
+
+\[Cov[Y,Y] = ACov[X,X]A^t\]
+
 \subsection{Whitening}
+To whiten, we use spectral decomposition to find the eigenvalues and eigenvectors of the covariance matrix. Then we solve for the whitening matrix by multiplying the diagonal eigenvalue matrix raised to -1/2 times the transpose of the eigenvector matrix. Then plug the whitening matrix back into E[Y] expression to solve for b.
 
 \newpage
 \section{ML and MAP Estimation}
