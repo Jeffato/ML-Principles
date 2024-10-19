@@ -23,11 +23,112 @@ Submission Files:
 
 \section{MMSE Regression}
 \subsection{Data Matrix}
+From the given data points, we can construct the data matrix as follows:
+\[
+\Phi = \begin{bmatrix}
+1 & 4 & 1 & 1\\
+1 & 7 & 0 & 2\\
+1 & 10 & 1 & 3\\
+1 & 13 & 0 & 4
+\end{bmatrix}
+\]
+\noindent
+Where the first column corresponds to the bias term, second to x1, third to x2, and fourth to x3.
+
 \subsection{Exact or Approximate Solution}
+
+The normal equation (shown below) will give an MMSE-approximated solution.
+
+\[
+\Phi^t \Phi \begin{bmatrix}
+w_0\\
+w_1\\
+w_2\\
+w_3\\
+\end{bmatrix} = \Phi^t \begin{bmatrix}
+16\\
+23\\
+36\\
+43
+\end{bmatrix} 
+\]
+
+\noindent
+The data matrix has a rank 3, indicating linear dependence. This system is under-determined and means that $\Vec{y}$ = [16, 23, 36, 43] does not lie in the same hyperplane as [1, 4, 1, 1], [1, 7, 0, 2], [1, 10, 1, 3], and [1, 13, 0, 4]
+
 \subsection{Invertibility}
+$\Phi^t \Phi$ is not invertible. Since $\Phi$ is a singular matrix, $\Phi^t \Phi$ must also be singular since its rank is at most the rank of $\Phi$, which in this case is 3. Instead, we can use the Moore-Penrose Pseudo Inverse. I calculated this using the pinv function in from numpy.linalg. Using this pseudo inverse, we can plug into the normal equation
+
+\[
+\Vec{w} = (\Phi^t \Phi)^+  \Phi^t 
+\begin{bmatrix}
+16\\
+23\\
+36\\
+43
+\end{bmatrix}
+\]
+
+\noindent
+and we find the following weights.
+\noindent
+\[
+\Vec{w} = [0, 3, 3, 1]
+\]
+
 \subsection{Another Proposed Model}
+
+The original model given differs from mine. Looking first at the sample dataset, we see that it is relatively small at only 4 points. It is possible that this introduces sample bias, leading to the model learning incorrect patterns. Additionally, since we used a psuedo-inverse to solve for the weights, there is some error since it is only an approximation. Finally, there could be some intrinsic error present in our data collection. 
+
 \subsection{New Data}
+Adding the new data, we have the following data matrix.
+
+\[
+\Phi = \begin{bmatrix}
+1 & 4 & 1 & 1\\
+1 & 7 & 0 & 2\\
+1 & 10 & 1 & 3\\
+1 & 13 & 0 & 4\\
+1 & 16 & 1 & 5\\
+1 & 19 & 0 & 6\\
+1 & 22 & 1 & 7\\
+1 & 25 & 0 & 8\\
+\end{bmatrix}
+\]
+
+\noindent
+Similar to 1.2, this data matrix is still singular. Once again, we use the Moore-Penrose Pseudo Inverse. Repeating the same process as in 1.3 we find the following new weights. 
+
+\[
+\Vec{w} = [-0.0384, 2.9947, 3.0827, 1.01107]
+\]
+\noindent
+This model still differs from the original model.[TODO: Finish chance to obtain the original model]
+
 \subsection{Delete Data}
+The original data matrix has the following linear dependency in columns 1, 2, and 4.
+
+\[3 \begin{bmatrix}
+    1 \\
+    2 \\
+    3 \\
+    4 
+\end{bmatrix} + \begin{bmatrix}
+    1 \\
+    1 \\
+    1 \\
+    1 
+\end{bmatrix} = 
+\begin{bmatrix}
+    4 \\
+    7 \\
+    10 \\
+    13
+\end{bmatrix}
+\]
+
+\noindent
+To restore full rank, we must delete one of these columns. Column 1 should not be deleted as it represents the bias term in weights. Either Column 2 or Column 4 can be deleted to ensure a unique solution, as the resulting matrix after their deletion results has a rank of 3.
 
 \section{Lagrangian Functions and KKT Conditions}
 \subsection{MMSE Objective Function}
