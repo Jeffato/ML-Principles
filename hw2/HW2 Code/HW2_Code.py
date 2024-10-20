@@ -56,8 +56,14 @@ def Q1():
         reduced_rank = np.linalg.matrix_rank(X_reduced)
         print(f"Rank without column {i}:", reduced_rank)
 
+# Q4 Dirs and Flags
 train_dir = Path(__file__).resolve().parent.parent / "HW2_data/P4_data/train"
 test_dir  = Path(__file__).resolve().parent.parent / "HW2_data/P4_data/test"
+save_dir = Path(__file__).resolve().parent.parent / "EigenFaces"
+
+saveFlag = False
+genTestImagesFlag = False
+displayEigenFlag= True
 
 # Q4- EigenFace
 def Q4():
@@ -87,27 +93,60 @@ def Q4():
     idx = eigenValues.argsort()[::-1]   
     eigenVectors = eigenVectors[:,idx]
 
-    # 6. Model Test Image
-    print("Generating Test Images...")
+    # 6. Model Test Image (4.2)
+    if genTestImagesFlag:
+        print("Generating Test Images...")
 
-    # Load image- Iterate through Train folder
-    for file in os.listdir(test_dir):
-        curr_test_image = Image.open(os.path.join(test_dir, file))
-        image = np.asarray(curr_test_image)
-        test_image = np.array(image.flatten())
-        curr_test_image.show()
+        # Load image- Iterate through Train folder
+        for file, fileNum in zip(os.listdir(test_dir), range(0,10)):
+            curr_test_image = Image.open(os.path.join(test_dir, file))
+            image = np.asarray(curr_test_image)
+            test_image = np.array(image.flatten())
+            curr_test_image.show()
 
-        M = [2, 10, 100, 1000, 4000]
+            M = [2, 10, 100, 1000, 4000]
 
-        for num_components in M:
-            m_eigen_vec = eigenVectors[:, 0:num_components]
-            center_image = test_image - mean_image
-            est_image = mean_image + m_eigen_vec @ m_eigen_vec.T @ center_image
+            for num_components in M:
+                m_eigen_vec = eigenVectors[:, 0:num_components]
+                center_image = test_image - mean_image
+                est_image = mean_image + m_eigen_vec @ m_eigen_vec.T @ center_image
 
-            # Convert the array to a PIL Image object and display
-            constructed_img = Image.fromarray(est_image.reshape(60,80))
+                # Display Image
+                constructed_img = Image.fromarray(est_image.reshape(60,80)).convert("L")
 
-            print("Displaying image with M=", num_components)
+                # Display
+                print("Displaying image with M=", num_components)
+                constructed_img.show()
+
+                # Save the reconstructed image
+                if saveFlag:
+                    output_filename = f"pic{fileNum}_M{num_components}.png"
+                    constructed_img.save(save_dir / output_filename)
+                    print(f"Image saved as {output_filename} with M={num_components}")
+            
+        print("Done!")
+
+    # 7. Display eigenvectors (4.3)
+    if displayEigenFlag:
+        print("Displaying Greatest Eigenvectors...")
+        for i in range(10):
+            # Process eigenvector
+            curr_eigen_vec = eigenVectors[:, i]
+            color_eigen =(curr_eigen_vec - np.min(curr_eigen_vec)) / (np.max(curr_eigen_vec) - np.min(curr_eigen_vec)) * 256
+            reshaped_eigen = color_eigen.reshape(60,80)
+            reshaped_eigen = np.uint8(reshaped_eigen)
+
+            # Display Image
+            constructed_img = Image.fromarray(reshaped_eigen)
+            print("Displaying Eigenvector", i)
             constructed_img.show()
+
+            # Save the reconstructed image
+            if saveFlag:
+                output_filename = f"eigenvector{i}.png"
+                constructed_img.save(save_dir / output_filename)
+                print(f"Image saved as {output_filename}")
+    
+        print("Done!")
 
 Q4()
