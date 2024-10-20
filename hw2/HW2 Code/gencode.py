@@ -11,8 +11,15 @@ def Q1():
     y = np.array([16, 23, 36, 43]) 
 
     # Q 1.2
-    print("Data Matrix Rank:", np.linalg.matrix_rank(data_matrix))
-    print("Dim Y", y.shape[0])
+
+    # Since Augmented rank is < n -> overdetermined. Same hyperplane
+    augmented_matrix = np.array([
+        [1, 4, 1, 1, 16], 
+        [1, 7, 0, 2, 23], 
+        [1, 10, 1, 3, 36], 
+        [1, 13, 0, 4, 43]])
+
+    print("Augmented Rank:", np.linalg.matrix_rank(augmented_matrix))
 
     # Q 1.3
 
