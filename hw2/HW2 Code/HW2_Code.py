@@ -92,8 +92,10 @@ def Q4():
 
     # Load image- Iterate through Train folder
     for file in os.listdir(test_dir):
-        image = np.asarray(Image.open(os.path.join(test_dir, file)))
+        curr_test_image = Image.open(os.path.join(test_dir, file))
+        image = np.asarray(curr_test_image)
         test_image = np.array(image.flatten())
+        curr_test_image.show()
 
         M = [2, 10, 100, 1000, 4000]
 
