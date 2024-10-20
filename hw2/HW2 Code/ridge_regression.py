@@ -5,6 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 polyDegree = 10
+saveFlag = False
+
+save_dir = Path(__file__).resolve().parent.parent / "regressionWeights/ridge_regression"
 
 # Load test/train data sets
 dir = Path(__file__).resolve().parent.parent / "HW2_data/P3_data"
@@ -18,14 +21,15 @@ test_y=np.load(dir / "test.npz")["y"]
 # If time, code out KFolds
 kf = KFold(n_splits=5, shuffle=True, random_state=5)
 # regularization_params = [0.00000001, 0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.5, 1]
-regularization_params = [i for i in range(1, 100, 1)]
+# regularization_params = [i for i in range(1, 100, 1)]
+regularization_params = [0.0003]
 
 minScore = 999999
 minReg = 0
 
 for reg in regularization_params:
     mse_scores = []
-    reg = reg / 10000
+    # reg = reg / 10000
 
     for train_index, test_index in kf.split(train_x):
         X_train, X_test = train_x[train_index], train_x[test_index]
@@ -58,6 +62,9 @@ for reg in regularization_params:
         # plt.title('Data Points and Polynomial Regression Line')
         # plt.legend()
         # plt.show()
+
+        if saveFlag:
+            np.savetxt(save_dir / f"ridge_lambda{reg}", weights)
 
     average_mse = np.mean(mse_scores)
     print(f'5-Fold Cross-Validation MSE: {average_mse:.4f}, lambda = {reg}')

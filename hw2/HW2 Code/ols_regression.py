@@ -3,11 +3,15 @@ from pathlib import Path
 from sklearn.model_selection import KFold
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 polyDegree = 10
+saveFlag = False
 
 # Load test/train data sets
 dir = Path(__file__).resolve().parent.parent / "HW2_data/P3_data"
+
+save_dir = Path(__file__).resolve().parent.parent / "regressionWeights/regression"
 
 train_x=np.load(dir / "train.npz")["x"]
 train_y=np.load(dir / "train.npz")["y"]
@@ -19,6 +23,7 @@ test_y=np.load(dir / "test.npz")["y"]
 kf = KFold(n_splits=5, shuffle=True, random_state=5)
 
 mse_scores = []
+count = 0
 
 # Start Training
 for train_index, test_index in kf.split(train_x):
@@ -51,6 +56,10 @@ for train_index, test_index in kf.split(train_x):
     # plt.title('Data Points and Polynomial Regression Line')
     # plt.legend()
     # plt.show()
+    
+    if saveFlag:
+        np.savetxt(save_dir / f"Fold:{count}", weights)
+        count = count + 1
 
 # Average MSE across all folds
 average_mse = np.mean(mse_scores)
