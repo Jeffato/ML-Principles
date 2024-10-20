@@ -22,6 +22,16 @@
 \noindent
 Submission Files:
 
+John Bailon- CS461 HW2: Homework write up
+
+HW2\_Code.py: Code used for Q1 and Q4
+
+ols\_regression.py: Code for 3.1
+
+ridge\_regression.py: Code for 3.2
+
+ols\_regression\_largeset.py: Code for 3.5
+
 \section{MMSE Regression}
 \subsection{Data Matrix}
 From the given data points, we can construct the data matrix as follows:
@@ -231,17 +241,123 @@ Since the constraint is negative, the optimal $\lambda$* is 0.
 
 \section{Learning Sinusoidal Functions}
 \subsection{MMSE Regression}
-\subsection{Ridge Regression}
-\subsection{Plotted Models}
-\subsection{Model Evaluation}
-\subsection{Model w/o Regulation and Cross Validation}
-\subsection{Solutions to Control Complexity}
 
+See ols\_regression.py code.
+
+My average MSE is 0.4916.
+
+\subsection{Ridge Regression}
+TODO
+\subsection{Plotted Models}
+TODO
+\subsection{Model Evaluation}
+TODO
+
+\subsection{Large Set Regression}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{3.5 LargeSet Regression Graph.png}
+    \caption{Large Set Regression using n = 100}
+\end{figure}
+
+\subsection{Solutions to Control Complexity}
+TODO
+
+\newpage
 \section{Eigenface}
 \subsection{Spectral Decomposition}
+
+See HW2Code- Q4
+
 \subsection{Image Representation}
+
+\begin{figure}[!htb]
+   \begin{minipage}{0.48\textwidth}
+     \centering
+      \includegraphics[width=0.5\linewidth]{pic0_M2.png}
+    \caption{Subject 15: Centerlight M=2}
+   \end{minipage}\hfill
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{pic0_M10.png}
+     \caption{Subject 15: Centerlight M=10}
+   \end{minipage}
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{pic0_M100.png}
+     \caption{Subject 15: Centerlight M=100}
+   \end{minipage}
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{pic0_M1000.png}
+     \caption{Subject 15: Centerlight M=1000}
+   \end{minipage}
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{pic0_M4000.png}
+     \caption{Subject 15: Centerlight M=4000}
+   \end{minipage}
+\end{figure}
+
 \subsection{Eigenvalues and Human Faces}
 
+Displayed below are the eigenvectors that correspond to the 10 largest eigenvalues in the training set. In the pictures present we see that outlines and silhouettes of individual faces are seen, the general structure of the face and hair, and general facial features, albeit very blurry, like the nose, eyes, and mouth. The largest eigenvalue corresponds to the eigenvector that has the most variance throughout the dataset. As we move down the list, more specific but common features between the training faces are seen, such as in Eigenvector 8 with distinct facial detail.
+
+\begin{figure}[!htb]
+   \begin{minipage}{0.48\textwidth}
+     \centering
+      \includegraphics[width=0.5\linewidth]{eigenvector0.png}
+    \caption{Eigenvector 0}
+   \end{minipage}\hfill
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{eigenvector1.png}
+     \caption{Eigenvector 1}
+   \end{minipage}
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{eigenvector2.png}
+     \caption{Eigenvector 2}
+   \end{minipage}
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{eigenvector3.png}
+     \caption{Eigenvector 3}
+   \end{minipage}
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{eigenvector4.png}
+     \caption{Eigenvector 4}
+   \end{minipage}
+      \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{eigenvector5.png}
+     \caption{Eigenvector 5}
+   \end{minipage}
+      \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{eigenvector6.png}
+     \caption{Eigenvector 6}
+   \end{minipage}
+      \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{eigenvector7.png}
+     \caption{Eigenvector 7}
+   \end{minipage}
+      \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{eigenvector8.png}
+     \caption{Eigenvector 8}
+   \end{minipage}
+      \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.5\linewidth]{eigenvector9.png}
+     \caption{Eigenvector 9}
+   \end{minipage}
+\end{figure}
+
+\newpage
 \section{Estimate Art Creation- Deep CNN}
 \subsection{Pre-processing}
 \subsection{Training}
