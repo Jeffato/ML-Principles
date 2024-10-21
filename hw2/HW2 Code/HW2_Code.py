@@ -72,15 +72,16 @@ def Q3():
         weight_list.append(weights)
 
     weight_list = np.array(weight_list)
-    merged_weights = np.sum(weight_list, axis=0)
-    
+    merged_weights = np.mean(weight_list, axis=0)
+
     # Optimal ridge reg lambda
     weights_ridge = np.loadtxt(reg_dir / load_ridge_reg)
 
     # Test_set
     test_x = np.load(dir / "test.npz")["x"]
     test_y = np.load(dir / "test.npz")["y"]   
-    pass
+
+    test_data_matrix = np.column_stack([test_x**i for i in range(10)])
 
 # Q4 Dirs and Flags
 train_dir = Path(__file__).resolve().parent.parent / "HW2_data/P4_data/train"
