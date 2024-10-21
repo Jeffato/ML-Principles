@@ -20,12 +20,15 @@ test_y=np.load(dir / "test.npz")["y"]
 
 # If time, code out KFolds
 kf = KFold(n_splits=5, shuffle=True, random_state=5)
-# regularization_params = [0.00000001, 0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.5, 1]
+# regularization_params = [0.00000001, 0.0000001, 0.000001, 0.00001, 0.0001, 0.0003, 0.001, 0.01, 0.5, 1]
 # regularization_params = [i for i in range(1, 100, 1)]
-regularization_params = [0.0003]
+regularization_params = [0.0001, 0.0003, 0.001, 0.01, 0.5, 1]
+regularization_params = [0.0001, 0.0003, 0.0005, 0.0007, 0.0009, 0.00011]
 
 minScore = 999999
 minReg = 0
+
+avg_mse_scores = []
 
 for reg in regularization_params:
     mse_scores = []
@@ -69,8 +72,18 @@ for reg in regularization_params:
     average_mse = np.mean(mse_scores)
     print(f'5-Fold Cross-Validation MSE: {average_mse:.4f}, lambda = {reg}')
 
+    avg_mse_scores.append(average_mse)
+
     if minScore > average_mse:
         minScore = average_mse
         minReg = reg
 
 print(f'Optimal lambda is {minReg} with a MMSE of {minScore}')
+
+# Graph info
+plt.scatter(regularization_params, avg_mse_scores, color='blue')
+plt.title('Regularization Parameters v. MSE Score')
+plt.xlabel("Regularization Parameters")
+plt.ylabel("MSE Scores")
+plt.legend()
+plt.show()

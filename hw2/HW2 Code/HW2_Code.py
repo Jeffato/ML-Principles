@@ -1,8 +1,8 @@
 from PIL import Image
 from pathlib import Path
-
 import numpy as np
 import os
+import matplotlib.pyplot as plt
 
 # Q1- MMSE Regression
 def Q1():
@@ -55,6 +55,32 @@ def Q1():
         X_reduced = np.delete(data_matrix, i, axis=1)
         reduced_rank = np.linalg.matrix_rank(X_reduced)
         print(f"Rank without column {i}:", reduced_rank)
+
+# Q3 Dirs and Flags
+reg_dir = Path(__file__).resolve().parent.parent / "regressionWeights"
+load_regression = "regression"
+load_ridge_reg =  "ridge_regression/ridge_lambda0.0003.txt"
+dir = Path(__file__).resolve().parent.parent / "HW2_data/P3_data"
+
+def Q3():
+    weight_list = []
+
+    # Average reg lambda
+    for file in os.listdir(reg_dir / load_regression):
+        file_path = os.path.join(reg_dir / load_regression, file)
+        weights = np.loadtxt(file_path)
+        weight_list.append(weights)
+
+    weight_list = np.array(weight_list)
+    merged_weights = np.sum(weight_list, axis=0)
+    
+    # Optimal ridge reg lambda
+    weights_ridge = np.loadtxt(reg_dir / load_ridge_reg)
+
+    # Test_set
+    test_x = np.load(dir / "test.npz")["x"]
+    test_y = np.load(dir / "test.npz")["y"]   
+    pass
 
 # Q4 Dirs and Flags
 train_dir = Path(__file__).resolve().parent.parent / "HW2_data/P4_data/train"
@@ -149,4 +175,4 @@ def Q4():
     
         print("Done!")
 
-Q4()
+Q3()
