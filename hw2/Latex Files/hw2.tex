@@ -276,7 +276,11 @@ The MSE for the model with regularization is 0.0335
 \end{figure}
 
 \subsection{Solutions to Control Complexity}
-TODO
+As seen in 3.3, using a regularization constant can control model complexity. The regularization constant penalizes large coefficients, thus reducing the chance of overfitting, especially with a polynomial of a high degree.
+
+Also seen in 3.3, the use of cross-validation also can control model complexity. Cross-validation involves setting a side a portion of the training data to be used as a validation set. Training on each fold and testing on their respective validation set can show possible overfitting and underfitting. Taking the average of each of the models allows the model more generalizable.
+
+Finally, in 3.5, we see that increasing the number of data points can also control model complexity. More data points decreases the effect that noise has on the generated model. It also reduces variance in the model, making the model less sensitive to small variations in the training data.
 
 \newpage
 \section{Eigenface}
