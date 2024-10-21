@@ -105,7 +105,7 @@ def Q3():
     mse_ridge_reg = np.mean((test_y - predictions_ridge_reg) ** 2)
 
     print(f"MSE for no Reg: {mse_reg}")
-    print(f"MSE for Reg: {mse_ridge_reg}")
+    print(f"MSE for Reg: {mse_reg}")
 
 # Q4 Dirs and Flags
 train_dir = Path(__file__).resolve().parent.parent / "HW2_data/P4_data/train"
@@ -199,5 +199,3 @@ def Q4():
                 print(f"Image saved as {output_filename}")
     
         print("Done!")
-
-Q3()
