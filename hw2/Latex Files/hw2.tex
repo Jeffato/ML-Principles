@@ -10,6 +10,7 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{float}
 \DeclareMathOperator*{\argminA}{arg\,min}
 
 \title{CS461 HW 2}
@@ -247,15 +248,28 @@ See ols\_regression.py code.
 My average MSE is 0.4916.
 
 \subsection{Ridge Regression}
-TODO
+From the graph below, the optimal regularization parameter is 0.0003.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{3.2 Average MSE.png}
+\end{figure}
+
 \subsection{Plotted Models}
-TODO
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{3.3 Models.png}
+    \caption{Enter Caption}
+    \label{fig:enter-label}
+\end{figure}
+
 \subsection{Model Evaluation}
-TODO
+On the test set the MSE for the model with no regularization is 0.3565.  
+
+The MSE for the model with regularization is 0.0335
 
 \subsection{Large Set Regression}
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{3.5 LargeSet Regression Graph.png}
     \caption{Large Set Regression using n = 100}

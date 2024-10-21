@@ -77,11 +77,35 @@ def Q3():
     # Optimal ridge reg lambda
     weights_ridge = np.loadtxt(reg_dir / load_ridge_reg)
 
+    # Plot Check
+    # Line of Best Fit
+    x_vals_reg = np.linspace(0, 1, 200)
+    y_vals_reg = np.polyval(merged_weights[::-1], x_vals_reg)
+    plt.plot(x_vals_reg, y_vals_reg, color='red', label='No Regularization', linewidth=2)
+
+    x_vals_ridge_reg = np.linspace(0, 1, 200)
+    y_vals_ridge_reg = np.polyval(weights_ridge[::-1], x_vals_ridge_reg)
+    plt.plot(x_vals_ridge_reg, y_vals_ridge_reg, color='blue', label='Regularization', linewidth=2)
+
+    # Graph info
+    plt.title('Comparison between regularized and non-reg models')
+    plt.legend()
+    # plt.show()
+
     # Test_set
     test_x = np.load(dir / "test.npz")["x"]
     test_y = np.load(dir / "test.npz")["y"]   
 
     test_data_matrix = np.column_stack([test_x**i for i in range(10)])
+
+    predictions_reg = test_data_matrix @ merged_weights
+    predictions_ridge_reg = test_data_matrix @ weights_ridge
+
+    mse_reg = np.mean((test_y - predictions_reg) ** 2)
+    mse_ridge_reg = np.mean((test_y - predictions_ridge_reg) ** 2)
+
+    print(f"MSE for no Reg: {mse_reg}")
+    print(f"MSE for Reg: {mse_ridge_reg}")
 
 # Q4 Dirs and Flags
 train_dir = Path(__file__).resolve().parent.parent / "HW2_data/P4_data/train"
