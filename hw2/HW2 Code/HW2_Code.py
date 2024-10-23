@@ -253,5 +253,3 @@ def Q5():
     fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), ax=ax)
     ax.scatter(pca_logit[0, :], train_year, c=train_year, cmap=cmap, s=2)
     plt.show()
-
-Q5()
