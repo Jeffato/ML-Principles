@@ -25,13 +25,18 @@ Submission Files:
 
 John Bailon- CS461 HW2: Homework write up
 
-HW2\_Code.py: Code used for Q1 and Q4
+HW2\_Code.py: Code used for Q1, Q4 and Q5
 
 ols\_regression.py: Code for 3.1
 
 ridge\_regression.py: Code for 3.2
 
 ols\_regression\_largeset.py: Code for 3.5
+
+year\_train.py: Code for 5.2
+
+year\_test.py: Code for 5.3
+
 
 \section{MMSE Regression}
 \subsection{Data Matrix}
@@ -49,7 +54,7 @@ Where the first column corresponds to the bias term, second to x1, third to x2, 
 
 \subsection{Exact or Approximate Solution}
 
-The normal equation (shown below) will give an MMSE-approximated solution.
+The normal equation (shown below) will give an exact solution.
 
 \[
 \Phi^t \Phi \begin{bmatrix}
@@ -378,7 +383,29 @@ Displayed below are the eigenvectors that correspond to the 10 largest eigenvalu
 \newpage
 \section{Estimate Art Creation- Deep CNN}
 \subsection{Pre-processing}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{5.1 2D Visualization.png}
+    \caption{Year over m=1 PCA}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{5.1 3D Visualization.png}
+    \caption{Year over m=2 PCA}
+\end{figure}
+
+Above are the plots for the data set with 1 and 2 principle components respectively. We see in the 3D (2-PC) that the 2D (1-PC) plot is insufficient in fully visualizing the variance in the data set. PCA aims to reduce dimensionality, while also retaining enough variance to draw meaningful inferences and models from the data set.
+
 \subsection{Training}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{5.2 Error.png}
+\end{figure}
+
+
 \subsection{Testing}
 
+My Model MSE on the test set was 27888.523
+My largest error was on "Christ before Herod" with a prediction of 2231, Actual: 1509 
+My smallest error was on "Mikhail Ivanovich" with a prediction of 1893, Actual: 1893 
 \end{document}

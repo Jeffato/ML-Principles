@@ -2,6 +2,7 @@ from PIL import Image
 from pathlib import Path
 import numpy as np
 import os
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 # Q1- MMSE Regression
@@ -105,7 +106,7 @@ def Q3():
     mse_ridge_reg = np.mean((test_y - predictions_ridge_reg) ** 2)
 
     print(f"MSE for no Reg: {mse_reg}")
-    print(f"MSE for Reg: {mse_reg}")
+    print(f"MSE for Reg: {mse_ridge_reg}")
 
 # Q4 Dirs and Flags
 train_dir = Path(__file__).resolve().parent.parent / "HW2_data/P4_data/train"
@@ -113,8 +114,8 @@ test_dir  = Path(__file__).resolve().parent.parent / "HW2_data/P4_data/test"
 save_dir = Path(__file__).resolve().parent.parent / "EigenFaces"
 
 saveFlag = False
-genTestImagesFlag = False
-displayEigenFlag= True
+genTestImagesFlag = True
+displayEigenFlag= False
 
 # Q4- EigenFace
 def Q4():
@@ -199,3 +200,56 @@ def Q4():
                 print(f"Image saved as {output_filename}")
     
         print("Done!")
+
+# Q5- Graphing
+# Q 5.1 + 5.2
+from pathlib import Path
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Q5 Dirs 
+graph_dir = Path(__file__).resolve().parent.parent / "HW2_data/P5_data"
+
+def PCA(matrix):
+    # SVD
+    centered_matrix = matrix - np.mean(matrix, axis=0)
+    covariance = np.cov(centered_matrix, rowvar=False)
+    eigenValues, eigenVectors = np.linalg.eigh(covariance)
+
+    # Sort eigen val/vec to find principle components
+    idx = eigenValues.argsort()[::-1]   
+    pca_eigenVectors = eigenVectors[:,idx]
+    pca_eigenValues = eigenValues[idx]
+
+    # PCA
+    pca_inv_sqrt_eigenValues = np.diag(1.0 / np.sqrt(pca_eigenValues))
+    pca_matrix = pca_inv_sqrt_eigenValues @ pca_eigenVectors.T @ matrix.T
+
+    return pca_matrix
+
+def Q5():
+    # Load Data
+    train_logit=np.load(graph_dir / "vgg16_train.npz", allow_pickle=True)["logit"]
+    train_year=np.load(graph_dir / "vgg16_train.npz", allow_pickle=True)["year"]
+
+    # Generate PCA Graphs
+    pca_logit = PCA(train_logit)
+
+    # 2-D Graph
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+
+    cmap = mpl.cm.viridis
+    norm = mpl.colors.Normalize(vmin=1148, vmax=2012)
+    fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), ax = plt.gca()) 
+    ax.scatter(pca_logit[0,:], pca_logit[1,:], train_year, c=train_year, s=2,picker=4)
+    plt.show()
+
+    # 1-D Graph
+    fig, ax = plt.subplots()
+    cmap = mpl.cm.viridis
+    norm = mpl.colors.Normalize(vmin=1148, vmax=2012)
+    fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), ax=ax)
+    ax.scatter(pca_logit[0, :], train_year, c=train_year, cmap=cmap, s=2)
+    plt.show()
