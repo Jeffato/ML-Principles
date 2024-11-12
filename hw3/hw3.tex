@@ -30,8 +30,85 @@ Submission Files:
 
 \section{Perceptron}
 \subsection{Iterations- Single Data Point}
+With an initial $w_0$ = (0,0) and step size of 1, let's look at the initial prediction of the data point $\{(x_1, x_2), +1\}$
+
+\[y_{pred} = w_1x_1 + w_2x_2\]
+\[y_{pred} = (0)x_1 + (0)x_2 = 0 \rightarrow -1\] 
+
+This is an incorrect prediction so we will update weights by the following rule.
+
+\[w = w + \eta(y_{true})(x_1)\]
+
+\[w_1 = 0 + (1)(1)(x_1) = x_1\]
+\[w_2 = 0 + (1)(1)(x_2) = x_2\]
+
+Next, let's look at the second prediction.
+
+\[y_{pred} = (x_1)x_1 + (x_2)x_2 = x_1^2 + x_2^2\]
+
+As long as the point is not centered at the origin, the above sum, is always positive. This results in a correct prediction. Therefore, for all points except $(x_1, x_2) = (0,0)$ Perceptron will find a decision boundary in 1 iteration.
+
 \subsection{Iterations- Random weight vector}
+Let's look at two cases. If the initialized weights result in a correct prediction, then no updates are required. 
+
+If there is a misclassification, then we need to update the weights. The generalized rule for weight updates for n updates is
+
+\[w_1* = w_1 + nx_1 \]
+\[w_2* = w_2 + nx_1\]
+
+Then the nth prediction will be
+\[y_{pred} = (w_1 + nx_1)x_1 + (w_2 + nx_2)x_2\]
+\[y_{pred} = w_1x_1 + nx_1^2 + w_2x_2 + nx_2^2\]
+\[y_{pred} = w_1x_1 + w_2x_2 + n(x_1^2 + x_2^2)\]
+
+To get the correct classification, 
+
+\[w_1x_1 + w_2x_2 + n(x_1^2 + x_2^2) > 0\]
+
+Solving for n, the number of iterations before correct classification is
+\[n = \left \lceil{\frac{-(w_1x_1 + w_2x_2)}{(x_1^2 + x_2^2)}}\right \rceil \]
+
 \subsection{Perceptron Walk-through}
+
+Iteration 2- Mismatch, Point 3
+\[1: (0)(0) + (1)(1) = 1 \rightarrow +1\]
+\[2: (0)(1) + (1)(1) = 1 \rightarrow +1\]
+\[3: (0)(1) + (1)(0.5) = 0.5 \rightarrow +1\]
+
+\[w_2 = (0,1) + (-1)(1, 0.5) = (-1,0.5)\]
+
+Iteration 3- Mismatch, Point 2
+\[1: (-1)(0) + (0.5)(1) = 0.5 \rightarrow +1\]
+\[2: (-1)(1) + (0.5)(1) = -0.5 \rightarrow -1\]
+\[3: (-1)(1) + (0.5)(0.5) = -0.75 \rightarrow -1\]
+
+\[w_3 = (-1,0.5) + (1)(1, 1) = (0, 1.5)\]
+
+Iteration 4- Mismatch, Point 3
+\[1: (0)(0) + (1.5)(1) = 1.5 \rightarrow +1\]
+\[2: (0)(1) + (1.5)(1) = 1.5 \rightarrow +1\]
+\[3: (0)(1) + (1.5)(0.5) = 0.75 \rightarrow +1\]
+
+\[w_4 = (0, 1.5) + (-1)(1, 0.5) = (-1,1)\]
+
+Iteration 5- Mismatch, Point 2
+\[1: (-1)(0) + (1)(1) = 1 \rightarrow +1\]
+\[2: (-1)(1) + (1)(1) = 0 \rightarrow -1\]
+\[3: (-1)(1) + (1)(0.5) = -0.5 \rightarrow -1\]
+
+\[w_5 = (-1,1) + (1)(1, 1) = (0,2)\]
+
+Iteration 6 Mismatch, Point 3
+\[1: (0)(0) + (2)(1) = 2 \rightarrow +1\]
+\[2: (0)(1) + (2)(1) = 2 \rightarrow +1\]
+\[3: (0)(1) + (2)(0.5) = 1 \rightarrow +1\]
+
+\[w_6 = (0,2) + (-1)(1, 0.5) = (-1,1.5)\]
+
+Iteration 7- Complete
+\[1: (-1)(0) + (1.5)(1) = 1.5 \rightarrow +1\]
+\[2: (-1)(1) + (1.5)(1) = 0.5 \rightarrow +1\]
+\[3: (-1)(1) + (1.5)(0.5) = -0.25 \rightarrow -1\]
 
 \section{Gaussian Discriminant Analysis}
 \subsection{Data Statistics}
