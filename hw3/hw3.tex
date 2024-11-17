@@ -25,7 +25,203 @@ Submission Files:
 
 \section{Decision Trees}
 \subsection{Information Gained}
+
+First, we will define entropy and conditional entropy. Entropy is a measure of uncertainty or randomness in a random variable and is given by the following formula
+
+\[H(Y) = - \sum_{i}{P(Y = y_i)\log_2{P(Y =y_i)}}\]
+
+where $P(Y=y_i)$ is the probability of each target class value.
+
+Conditional entropy represents that amount of uncertainty in Y given X and is given by the following formula
+
+\[H(Y|X) = \sum_{j}{P(X = x_j)H(Y | X = x_j)} = \sum_{i}{P(X = x_i) \sum_{i}{P(Y = y_i | X = x_j)\log_2{P(Y = y_i | X = x_j)}}}\]
+
+Finally, mutual information is the difference between these two values and represents the information gained by knowing the value of feature X. To construct the tree, we will calculate the mutual information for each feature and split the data based on the feature with the greatest mutual information. 
+
+For brevity, the full calculations of the first feature is shown. Afterwards, only the probabilities are shown.
+\[P(Y = Yes) = P(Y = No) =  \frac{5}{10} = 0.5\]
+\[H(Y) = - ((0.5 * \log_2(0.5)) + (0.5 * \log_2(0.5))) = 1\]
+
+Weather:
+\[P(X = Sunny) = \frac{3}{10} = 0.3\]
+\[P(X = Cloudy) = \frac{3}{10} = 0.3 \]
+\[P(X = Rainy) = \frac{4}{10} = 0.4 \]
+
+\[P(Y= True | X = Sunny) =  \frac{1}{3} = 0.33 \]
+\[P(Y= True | X = Cloudy) = \frac{3}{3} = 1 \]
+\[P(Y= True | X = Rainy) = \frac{1}{4} = 0.25 \]
+
+\[P(Y = False | X = Sunny) = 1 - 0.33 = 0.67\]
+\[P(Y = False | X = Cloudy) = 1 - 1 = 0  \]
+\[P(Y = False | X = Rainy) = 1- 0.25 = 0.75 \]
+
+\[H(Y|Weather) = (0.3*-(0.33*\log_2{0.33} + 0.67*\log_2{0.67})) + 0.3*-\log_2{1} + (0.4*-(0.25*\log_2{0.25} + 0.75*\log_2{0.75})) = 0.6\]
+
+\[I(Weather;Y) = 1 - 0.6 = 0.4\]
+
+Temperature:
+\[P(X = Hot) =  0.4\]
+\[P(X = Mild) = 0.5 \]
+\[P(X = Cool) = 0.1 \]
+
+\[P(Y= True | X = Hot) = 0.5 \]
+\[P(Y= True | X = Mild) = 0.6 \]
+\[P(Y= True | X = Cool) = 0 \]
+
+\[P(Y = False | X = Hot) = 0.5 \]
+\[P(Y = False | X = Mild) = 0.4\]
+\[P(Y = False | X = Cool) = 1\]
+
+\[H(Y|Temperature) = 0.8855\]
+
+\[I(Temperature;Y) = 1 - 0.8855 = 0.1145\]
+
+Humidity:
+\[P(X = High) =  0.7\]
+\[P(X = Normal) = 0.3 \]
+
+\[P(Y= True | X = High) = 0.43 \]
+\[P(Y= True | X = Normal) = 0.67 \]
+
+\[P(Y = False | X = High) = 0.57 \]
+\[P(Y = False | X = Normal) = 0.33\]
+
+\[H(Y|Humidity) = 0.9651\]
+
+\[I(Humidity;Y) = 1 - 0.9651 = 0.0349\]
+
+Wind:
+\[P(X = Strong) =  0.6\]
+\[P(X = Weak) = 0.4 \]
+
+\[P(Y= True | X = Strong) = 0.33 \]
+\[P(Y= True | X = Weak) = 0.75 \]
+
+\[P(Y = False | X = Strong) = 0.67 \]
+\[P(Y = False | X = Weak) = 0.25\]
+
+\[H(Y|Wind) = 0.8755\]
+
+\[I(Wind;Y) = 1 - 0.8755 = 0.1245\]
+
+The feature with the greatest information is weather. Thus, we will split the data into three groups based on weather- Sunny, cloudy, rainy.
+
 \subsection{Pure Tree}
+After splitting the tree, the cloudy set has achieved purity and does not need to be split further.
+
+Looking at sunny:
+\[P(Y = Yes) = 0.333\]
+\[PP(Y = No) = 0.667\]
+\[H(Y) = 0.918\]
+
+Temperature:
+\[P(X = Hot) =  0.67\]
+\[P(X = Mild) = 0.33 \]
+\[P(X = Cool) = 0\]
+
+\[P(Y= True | X = Hot) = 0 \]
+\[P(Y= True | X = Mild) = 1 \]
+\[P(Y= True | X = Cool) = 0 \]
+
+\[P(Y = False | X = Hot) = 1 \]
+\[P(Y = False | X = Mild) = 0\]
+\[P(Y = False | X = Cool) = 0\]
+
+\[H(Y|Temperature) = 0\]
+
+\[I(Temperature;Y) = 0.918 - 0 = 0.918\]
+
+Humidity:
+\[P(X = High) =  0.67\]
+\[P(X = Normal) = 0.33 \]
+
+\[P(Y= True | X = High) = 0 \]
+\[P(Y= True | X = Normal) = 1 \]
+
+\[P(Y = False | X = High) = 1 \]
+\[P(Y = False | X = Normal) = 0\]
+
+\[H(Y|Humidity) = 0\]
+
+\[I(Humidity;Y) = 0.918 - 0 = 0.918\]
+
+Wind:
+\[P(X = Strong) =  0.67\]
+\[P(X = Weak) = 0.33 \]
+
+\[P(Y= True | X = Strong) = 0.50 \]
+\[P(Y= True | X = Weak) = 0 \]
+
+\[P(Y = False | X = Strong) = 0.5 \]
+\[P(Y = False | X = Weak) = 1\]
+
+\[H(Y|Wind) = 0.667\]
+
+\[I(Wind;Y) = 0.918 - 0.667 = 0.251\]
+
+Here, both temperature and humidity give the same information. I will split by high and low humidity, leading to two pure leaf nodes.
+
+Finally, let's look at Rainy
+\[P(Y = Yes) = 0.25\]
+\[PP(Y = No) = 0.75\]
+\[H(Y) = 0.811\]
+
+Temperature:
+\[P(X = Hot) =  0\]
+\[P(X = Mild) = 0.75 \]
+\[P(X = Cool) = 0.25\]
+
+\[P(Y= True | X = Hot) = 0 \]
+\[P(Y= True | X = Mild) = 0.33 \]
+\[P(Y= True | X = Cool) = 0 \]
+
+\[P(Y = False | X = Hot) = 0 \]
+\[P(Y = False | X = Mild) = 0.67\]
+\[P(Y = False | X = Cool) = 1\]
+
+\[H(Y|Temperature) = 0.6887\]
+
+\[I(Temperature;Y) = 0.811 - 0.6887 = 0.1226\]
+
+Humidity:
+\[P(X = High) =  0.75\]
+\[P(X = Normal) = 0.25 \]
+
+\[P(Y= True | X = High) = 0.33 \]
+\[P(Y= True | X = Normal) = 0 \]
+
+\[P(Y = False | X = High) = 0.67 \]
+\[P(Y = False | X = Normal) = 1\]
+
+\[H(Y|Humidity) = 0.6887\]
+
+\[I(Humidity;Y) = 0.811 - 0.6887 = 0.1226\]
+
+Wind:
+\[P(X = Strong) =  0.75\]
+\[P(X = Weak) = 0.25 \]
+
+\[P(Y= True | X = Strong) = 0 \]
+\[P(Y= True | X = Weak) = 1 \]
+
+\[P(Y = False | X = Strong) = 1 \]
+\[P(Y = False | X = Weak) = 0\]
+
+\[H(Y|Wind) = 0\]
+
+\[I(Wind;Y) = 0.811 - 0 = 0.811\]
+
+Here, wind gives the most information. Splitting wind by strong and weak, we have two pure leaf nodes as well.
+
+The final tree is shown below.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{1.2 Tree.png}
+    \caption{Completed 1.2 Decision Tree}
+\end{figure}
+
+
 \subsection{Pruning Trees}
 
 \section{Perceptron}
