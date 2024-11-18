@@ -11,7 +11,10 @@ from pathlib import Path
 snow = nltk.stem.SnowballStemmer('english')
 
 p4_data = Path(__file__).resolve().parent.parent / "P4_files/enron_spam_data.csv" 
-nltk.download('stopwords')
+mail_data = Path(__file__).resolve().parent.parent / "P4_files/mail.txt" 
+ec = True
+
+# nltk.download('stopwords')
 
 def preprocesamiento_words(sentence):       
     #Minisculas
@@ -44,21 +47,36 @@ def preprocesamiento_words(sentence):
     words = [snow.stem(word) for word in sentence.split() if word not in stopwords.words('english')]   # Stemming and removing stopwords
     return words
 
-
 text_list = []
 counter = 0
 df=pd.read_csv(p4_data)
+
+if ec:
+    with open(mail_data, 'r') as file:
+        mail = file.read().strip()
+
+        new_row = pd.DataFrame({
+            'Message ID': [len(df)],  
+            'Subject': [None],  
+            'Message': [mail],  
+            'Spam/Ham': ["spam"],  
+            'Date': [None]  
+        }, index=[len(df)]) 
+
+        df = pd.concat([df, new_row], ignore_index=True)
+
 df["cls"]=np.where(df["Spam/Ham"]=="spam",1,0)
 df["Message"]=df["Subject"]+df["Message"]
 df=df.sample(frac=1,random_state=3)
 cls=[]
+
 for (sentence,output) in zip(df['Message'],df["cls"]):
     if pd.isnull(sentence):
         continue
     text_list.append(preprocesamiento_words(sentence))
     cls.append(output)
     counter += 1
-    if counter==4000:
+    if counter==4001:
         break
 print("...finished preprocess")
 
@@ -85,7 +103,7 @@ tokens, voca = email_tokenization(email_process, features=2000)
 tokens["cls"]=cls
 
 #save as csv and vocab
-tokens.to_csv("spam_ham.csv")
+tokens.to_csv("spam_ham_ec.csv")
 with open("vocab.txt","wt") as f:
     for idx,item in enumerate(voca.keys()):
         f.write(str(idx)+": "+item+"\n")

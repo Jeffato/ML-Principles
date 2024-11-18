@@ -58,11 +58,11 @@ def ec_evaluate(weights, X):
     
 def main():
     # Load Data
-    train_x = np.load(dir / "train4_2.npz")["x"]
-    train_y = np.load(dir / "train4_2.npz")["y"]
+    train_x = np.load(dir / "train4_2_ec.npz")["x"]
+    train_y = np.load(dir / "train4_2_ec.npz")["y"]
 
-    test_x = np.load(dir / "test4_2.npz")["x"]
-    test_y = np.load(dir / "test4_2.npz")["y"]
+    test_x = np.load(dir / "test4_2_ec.npz")["x"]
+    test_y = np.load(dir / "test4_2_ec.npz")["y"]
 
     # Train model
     weights = gradient_descent(train_x, train_y)
@@ -74,11 +74,11 @@ def main():
     print(f"Train Accuracy: {train_acc:.4f}, Test Accuracy: {test_acc:.4f}")
 
     # Load mail.txt, preprocess
-    tok_mail = ""
+    mail = np.load(dir / "mail_ec.npz")["x"]
 
     # Evaluate
-    val_mail = ec_evaluate(weights, tok_mail)
+    val_mail = ec_evaluate(weights, mail)
     
-    print(f"Sigmoid Probability: {val_mail}, Spam? {round(val_mail)}")
+    print(f"Sigmoid Probability: {val_mail}, Spam? {round(val_mail[0])}")
     
 main()
