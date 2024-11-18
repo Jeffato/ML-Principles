@@ -18,19 +18,9 @@ class GDA_Classifier:
     # Gaussian Distribution
     def mult_gaussian_prob(self, x, mean, cov):
         exponent = math.exp(-0.5 * np.dot(np.dot((x - mean).T, np.linalg.inv(cov)), (x - mean)))
-        normalization = math.sqrt(2 * math.pi * np.linalg.det(cov))
-
+        normalization = 1 / math.sqrt(2 * math.pi * np.linalg.det(cov))
+        
         return normalization * exponent
-    
-    def multivariate_gaussian_likelihood(x, mu, cov):
-        d = len(mu)
-        cov_det = np.linalg.det(cov)
-        cov_inv = np.linalg.inv(cov)
-        diff = x - mu
-        exponent = -0.5 * np.dot(np.dot(diff.T, cov_inv), diff)
-        normalization = 1 / (np.sqrt((2 * np.pi) ** d * cov_det))
-        likelihood = normalization * np.exp(exponent)
-        return likelihood
 
     # Prediction Function
     def predict(self, x):
