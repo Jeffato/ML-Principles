@@ -7,7 +7,11 @@ from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
 import re
 import math
+from pathlib import Path
 snow = nltk.stem.SnowballStemmer('english')
+
+p4_data = Path(__file__).resolve().parent.parent / "P4_files/enron_spam_data.csv" 
+nltk.download('stopwords')
 
 def preprocesamiento_words(sentence):       
     #Minisculas
@@ -43,7 +47,7 @@ def preprocesamiento_words(sentence):
 
 text_list = []
 counter = 0
-df=pd.read_csv("enron_spam_data.csv")
+df=pd.read_csv(p4_data)
 df["cls"]=np.where(df["Spam/Ham"]=="spam",1,0)
 df["Message"]=df["Subject"]+df["Message"]
 df=df.sample(frac=1,random_state=3)
