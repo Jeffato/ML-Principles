@@ -28,11 +28,6 @@ class GDA_Classifier:
     # Evaluation Function
     def evaluate(self, x, y):
         predictions = x.apply(lambda val: self.predict(val), axis=1)
-
-        print(predictions.shape)
-        print(y.shape)
-
-        predictions = predictions.reset_index(drop=True)
         accuracy = np.mean(predictions == y['Result'])
 
         return accuracy
