@@ -20,9 +20,6 @@
 \begin{document}
 \maketitle
 
-\noindent
-Submission Files:
-
 \section{Decision Trees}
 \subsection{Information Gained}
 
@@ -308,11 +305,62 @@ Iteration 7- Complete
 
 \section{Gaussian Discriminant Analysis}
 \subsection{Data Statistics}
+
+\[
+\begin{array}{|c|c|c|}
+\hline
+Class & Mean & Var \\
+\hline
+Class + & -0.0722 & 1.3097 \\
+\hline
+Class - & 0.9401 & 1.9437 \\
+\hline
+\end{array}
+\]
+
 \subsection{Test Accuracy}
+The test accuracy is 61.50\%.
+
 \subsection{Classifier Improvements}
+We can improve the decision rule by considering the priors of the data set. Considering priors minimizes the expected classification error. It also improves generalization and regulates over-fitting as it lowers the likelihood probability.
+
+The test accuracy is 90.00\%.
+
 \subsection{GDA- 2D Data Statistics}
+
+Class+ 
+
+Mean: (0.01307, 0.06295) 
+Covariance:
+
+\[
+\begin{array}{|c|c|}
+\hline
+ 0.98285498 & 0.006120467 \\
+\hline
+ 0.00612046 & 1.05782804 \\
+\hline
+\end{array}
+\]
+
+Mean: (-0.02314, -0.02115) 
+Covariance:
+
+\[
+\begin{array}{|c|c|}
+\hline
+ 1.00329037 & -0.01142356 \\
+\hline
+ -0.01142356 & 4.97693356 \\
+\hline
+\end{array}
+\]
+
 \subsection{2D Test Accuracy}
+The test accuracy is 84.00\%.
+
 \subsection{Specified Densities}
+The test accuracy is 85.00\%. This is a slight, but not a very significant increase in the GDA model found in 3.4. GDA is a reasonable framework for classification especially if the underlying data follows a normal distribution or is very close to it, as seen in 3.5. GSA also considers priors, which minimize expected classification errors.
 
 \section{Logistic Regression}
 \subsection{Data Reprocessing}
@@ -322,3 +370,4 @@ Iteration 7- Complete
 \subsection{mail.txt Example}
 
 \end{document}
+
