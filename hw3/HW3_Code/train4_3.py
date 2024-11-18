@@ -61,7 +61,7 @@ def main():
     # Train model
     weights = gradient_descent(train_x, train_y)
 
-    # Evaluate on Train Set 
+    # Evaluate on Train/Test Set 
     train_acc = evaluate(weights, train_x, train_y)
     test_acc = evaluate(weights, test_x, test_y)
 
