@@ -221,6 +221,59 @@ The final tree is shown below.
 
 \subsection{Pruning Trees}
 
+To prune trees we want to minimize the following criterion
+
+\[C(T') = \sum_{\tau = 1}^{T'} Q(\tau) + \lambda * | num Leaves in T' |\]
+
+\[Q(\tau) = H(\tau) = - \sum P(\tau)\log_{2}{P(\tau)}\]
+
+Of note, a pure leaf has an entropy of 0. So in the current tree, the criterion of the unpruned tree is
+
+\[C(T') =  5\lambda\]
+
+We will start by looking at nodes that we can prune. We can select either weather, humidity, or wind to prune. The criterion of the tree can be calculated by looking at the entropy of the resulting leaf node post-prune. 
+
+Wind
+\[P(Y = Yes) = 0.25\]
+\[ P(Y = No) = 0.75\]
+\[H(Y) = - ((0.25 * \log_2(0.25)) + (0.75 * \log_2(0.75))) = 0.8113\]
+
+\[C(T') = 0.8113 + 4\lambda \]
+
+Humidity
+\[P(Y = Yes) = 0.33\]
+\[P(Y = No) = 0.67\]
+\[H(Y) = - ((0.33 * \log_2(0.33)) + (0.67 * \log_2(0.67))) = 0.9183\]
+
+\[C(T') = 0.9183 + 4\lambda \]
+
+Weather
+\[P(Y = Yes) = P(Y = No) = 0.5\]
+\[C(T') =  1 + \lambda\]
+
+From here we can evaluate various lambdas to see which criterion is minimized. 
+
+\[\lambda = 0 \]
+\[C(T') =  5(0) = 0\]
+\[C(T') = 0.8113 + 4(0) = 0.8113 \]
+\[C(T') = 0.9183 + 4(0) = 0.9183\]
+\[C(T') =  1 + (0) = 1\]
+
+\[\lambda = 0.25 \]
+\[C(T') =  5(0.25) = 1.25\]
+\[C(T') = 0.8113 + 4(0.25) = 1.8113 \]
+\[C(T') = 0.9183 + 4(0.25) = 1.9183\]
+\[C(T') =  1 + (0.25) = 1.25\]
+
+\[\lambda = 1 \]
+\[C(T') =  5(1) = 5\]
+\[C(T') = 0.8113 + 4(1) = 4.8113 \]
+\[C(T') = 0.9183 + 4(1) = 4.9183\]
+\[C(T') =  1 + (1) = 2\]
+
+Here we see that from 0 to 0.25, the criterion is minimized without pruning. For values greater than 0.25, it is optimal to prune the whole tree. Given that the data set is small (n=10) a lower value is optimal such as 0.1. The tree that minimizes this is the original tree, so nothing should be pruned.
+
+
 \section{Perceptron}
 \subsection{Iterations- Single Data Point}
 With an initial $w_0$ = (0,0) and step size of 1, let's look at the initial prediction of the data point $\{(x_1, x_2), +1\}$
