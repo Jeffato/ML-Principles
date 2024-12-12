@@ -7,11 +7,6 @@ from PIL import Image
 import os
 import numpy as np
 
-
-
-
-
-
 RBFarrays=[]
 model = nn.MaxPool2d(8, 8)
 path = os.getcwd()
@@ -28,20 +23,18 @@ for i in range(0,10):
     for image in images:
         image = Image.open(image).convert('L')
         img = np.array(PIL.ImageOps.invert(image))
-        avg = avg+img/len(images)
+        img= img.reshape((1,img.shape[0],img.shape[1]))
+        tensor = torch.from_numpy(img)
+        output = model(tensor)
+        numpy = tensor.numpy()
+        avg = avg+numpy/len(images)
 
     avg = np.array(np.round(avg), dtype=np.int32)
-    tensor = torch.from_numpy(avg)
 
-    output = model(tensor)
 
-    to_pil_image = transforms.ToPILImage()
+    pil_image = Image.fromarray(avg[0])
 
-    pil_image = to_pil_image(output)
     resize = pil_image.resize((7, 12))
+    resize.show()
     RBF = np.array(resize)
     RBFarrays.append(RBF)
-
-
-
-
