@@ -7,6 +7,9 @@ from PIL import Image
 import os
 import numpy as np
 
+#DOWLOAD digits from https://www.kaggle.com/datasets/karnikakapoor/digits?resource=download-directory
+
+
 RBFarrays=[]
 model = nn.MaxPool2d(8, 8)
 path = os.getcwd()
