@@ -21,6 +21,8 @@ num_classes = 10
 learning_rate = 0.001
 num_epochs = 4
 #----------------------Creating BitMaps----------------------#
+
+#DOWLOAD digits from https://www.kaggle.com/datasets/karnikakapoor/digits?resource=download-directory
 RBFarrays=[]
 model = nn.MaxPool2d(8, 8)
 path = os.getcwd()
