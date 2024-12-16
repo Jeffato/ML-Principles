@@ -19,23 +19,116 @@
 
 \begin{document}
 \maketitle
-
-\noindent
-Submission Files:
-
 \section{EM Algorithm}
 \subsection{Log-Likelihood}
+A regular Gaussian distribution is represented below
+
+\[\mathcal{N}(\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}exp(-\frac{(x-\mu)^2}{2\sigma^2})\]
+
+For a Gaussian mixture model, we introduce weight coefficients for each model and their respective mean and variance.
+
+\[f_{X}(x) = \pi_0 \cdot \mathcal{N}(\mu_0, \sigma_0^2) + \pi_1 \cdot \mathcal{N}(\mu_1, \sigma_1^2)\]
+
+To find the log-likelihood for each point, we will first sum the Gaussian probabilities of each model and then take the log.
+
+\[log L = log (\sum_{k} \pi_k \cdot \frac{1}{\sqrt{2\pi\sigma_k^2}}exp(-\frac{(x-\mu_k)^2}{2\sigma_k^2}))\]
+
+Using the code below, I got the following values:
+
+d1: -2.0939
+
+d2: -1.4851
+
+d3: -1.4851
+
+d4: -2.0939
+
+Total log-likelihood: -7.1582
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Q1.1 Code.png}
+    \caption{1.1 Code for Log-Likelihood}
+\end{figure}
+
 \subsection{E-Step}
+For the E-step, we have to calculate the responsibility that each group K assumes for a given data point. The responsibility of group k for point n is given by the following.
+
+\[\gamma_nk = \frac{\pi_k \cdot \mathcal{N}(x_i | \mu_k, \sigma_k^2) }{\sum_{k}\pi_k \cdot \mathcal{N}(x_i | \mu_k, \sigma_k^2)} \]
+
+For each data point, we will calculate the Gaussian probability, multiply it by its weight, and divide by the sum of both models.
+
+Using the code below, I got the following values:
+
+\begin{center}
+\begin{tabular}{ c c c }
+ Data & $\gamma_0$ & $\gamma_1$ \\
+ d1 & 0.0180 & 0.9820 \\ 
+ d2 & 0.1192 & 0.8808 \\  
+ d3 & 0.8808 & 0.1192 \\
+ d4 & 0.9820 & 0.0180 \\  
+\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Q1.2 Code.png}
+    \caption{1.2 Code for E-Step}
+\end{figure}
+
 \subsection{M-Step}
+Finally, we will update the parameters, weight coeff, mean, and variance for each model. 
+
+The weight is updated using:
+
+\[\pi_k(t+1) = \frac{\sum_{n}\gamma_{nk}(\theta_t)}{N} \]
+
+\[\pi_0(t+1) = \pi_1(t+1) = \frac{0.0180+0.1192+0.8808+0.9820}{4} = \frac{1}{2} \]
+
+The mean is updated using:
+
+\[\mu_k(t+1) = \frac{\sum_N \gamma_{nk} * x_n}{\sum_N \gamma_{nk}} \]
+
+The variance is updated using:
+
+\[\sigma_k^2(t+1) = \frac{\sum_N \gamma_{nk} * (x_n - \mu_k)^2 }{\sum_N \gamma_{nk}} \]
+
+Using the code below, I got the following values:
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{Q1.3 Code.png}
+    \caption{1.3 Code for M-Step}
+\end{figure}
+
+\begin{center}
+\begin{tabular}{ c c c }
+ Parameter & Model 0 & Model 1 \\
+ $\pi$      & 0.5 & 0.5 \\ 
+ $\mu$      & -1.3448 & 1.3448 \\  
+ $\sigma^2$ & 0.6914 & 0.6914 \\
+\end{tabular}
+\end{center}
+
 \subsection{Updated Log-likelihood}
+Using the values found in 1.3 and the code from 1.1, I recomputed the log-likelihood below. The total log-likelihood has increased.
+
+d1: -1.7376 
+
+d2: -1.4933 
+
+d3: -1.4933 
+
+d4: -1.7376 
+
+Total log-likelihood: -6.4619
 
 \section{Exact v. Approximate inference}
 \subsection{Variable Elimination}
-Using the structure of the provided network and conditional probability and marginalization we have,
+Using the structure of the provided network and conditional probability and marginalization, we have:
 
 \[ P(Cloudy | Sprinkler = T, WetGrass = T) = \alpha\sum_{rain} P(Cloudy, Sprinkler, Rain, Wet Grass)\]
 
-We will use normalization later to find the posterior probability. Next, we substitute the joint probability for its bayesian network representation
+We will use normalization later to find the posterior probability. Next, we substitute the joint probability for its Bayesian network representation
 
 \[ = \alpha \sum_{rain} P(Cloudy) * P(Sprinkler | Cloudy) * P(Rain | Cloudy) * P(WetGrass | Sprinkler, rain)\]
 
