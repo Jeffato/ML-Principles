@@ -32,7 +32,7 @@ def q1_1(model_vals):
         log_likelihood_val = log_likelihood(value, model_vals)
         total_log += log_likelihood_val
 
-        print(f"Data point: {value:.4f}, Log-likelihood: {log_likelihood_val:.4f}")
+        print(f"Data point: {value}, Log-likelihood: {log_likelihood_val:.4f}")
     
     print(f"Total Log-likelihood: {total_log:.4f}")
 
@@ -51,7 +51,7 @@ def q1_2(model_vals, print_flag):
         gamma1 = (weight1 * pdf1) / total_prob
         gamma2 = (weight2 * pdf2) / total_prob
 
-        if print_flag: print(f"Data point: {value:.4f}, gamma1 {gamma1:.4f}, gamma2 {gamma2:.4f}")
+        if print_flag: print(f"Data point: {value}, gamma1 {gamma1:.4f}, gamma2 {gamma2:.4f}")
 
         responsibility.append([gamma1, gamma2])
     
