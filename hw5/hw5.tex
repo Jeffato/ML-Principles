@@ -208,7 +208,20 @@ Here we can substitute the second term for the KL divergence and reorder to comp
 
 \section{RBM Movie Recommendation System}
 \subsection{Bipolar Coding}
-\subsection{Modify RBM}
-\subsection{Predict Movie Preference}
+The RBM in Figure 2 represents a recommendation system that encodes the preference for movies. A binary coding is not sufficient for this system as it needs to encode both like and dislike of a movie. Thus, a bipolar coding is more appropriate as like and dislike can be represented by positive and negative values, and unwatched movies can be represented with zeroes.
 
+\subsection{Modify RBM Conditional Probability}
+The derived conditional probability does not work as the sigmoid function ranges from 0 to 1. Since we are using a bipolar coding, we need our function to range from -1 to 1.
+
+We follow the same derivation as in class. However, instead of normalizing with h = 0, we must normalize with h = -1.
+
+\[P(h=1 | m1, m2, m3 = \alpha\cdot exp (m^t W[:,1] + C_1)\]
+\[P(h=-1 | m1, m2, m3 = \alpha\cdot exp (-m^t W[:,1] + C_1)\]
+
+Normalizing these functions we can use hyperbolic identities to derive
+\[P(h=1 | m1, m2, m3 = \frac{1+\tanh{exp (m^t W[:,1] + C_1)}}{2}\]
+
+\[P(m=1 | m1, m2, m3 = \frac{1+\tanh{exp (W[1,:]h + b_1)}}{2}\]
+
+\subsection{Predict Movie Preference}
 \end{document}
