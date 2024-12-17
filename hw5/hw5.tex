@@ -173,6 +173,39 @@ Below is the code I used to solve this problem. After 1,000,000 iterations, the 
 \section{VAE Lower Bound (ELBO)}
 \subsection{Derive the Inequality}
 
+First we start with the marginal log-likelihood:
+
+\[\log P_\theta (x_i) = log \sum_z  P_\theta(x_i, Z) \]
+
+Next, we add an approximate posterior by multiplying and dividing,
+
+\[ = log \sum_z   q_\phi (Z | x_i) *\frac{P_\theta(x_i, Z) }{q_\phi (Z | x_i)} \]
+\[ = log E_{q_\phi (Z | x_i)}[\frac{P_\theta(x_i, Z) }{q_\phi (Z | x_i)}]\]
+
+Next, we use Jensen's inequality, which states:
+
+\[E[\log X] \leq \log E[X]\]
+
+We can rewrite the above as an inequality,
+
+\[ \geq E_{q_\phi (Z | x_i)} [log\frac{P_\theta(x_i, Z) }{q_\phi (Z | x_i)}]\]
+
+Next, manipulate the equation using log properties,
+
+\[ \geq E_{q_\phi (Z | x_i)} [log (P_\theta(x_i, Z)) - log (q_\phi (Z | x_i))]\]
+
+Expand the joint probability, $P_\theta(x_i, Z)$ and once again use log properties
+
+\[ \geq E_{q_\phi (Z | x_i)} [log (P_\theta(x_i | Z)) + log(P_\theta(Z)) - log (q_\phi (Z | x_i))]\]
+
+Expand the terms within the expected value, and factor out -1 from the last two terms
+
+\[ \geq E_{q_\phi (Z | x_i)} [log (P_\theta(x_i | Z))] - E_{q_\phi (Z | x_i)}[log (q_\phi (Z | x_i)) - log(P_\theta(Z))]\]
+
+Here we can substitute the second term for the KL divergence and reorder to complete the proof.
+
+\[ = - D_{KL}q_\phi(z|x_i) || p_\theta(z) + E_{q_\phi (Z | x_i)} [log (P_\theta(x_i | Z))] )\]
+
 \section{RBM Movie Recommendation System}
 \subsection{Bipolar Coding}
 \subsection{Modify RBM}
