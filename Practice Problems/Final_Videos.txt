@@ -1,0 +1,42 @@
+MLE/MAP, Frequentists and Bayesians
+https://www.youtube.com/watch?v=8wVq5aGzSqY
+https://www.youtube.com/watch?v=RIawrYLVdIw
+
+Over/underfitting
+https://www.youtube.com/watch?v=gajUDdlBX3w&list=PLUenpfvlyoa0rMoE5nXA8kdctBKE9eSob
+
+PCA
+https://www.youtube.com/watch?v=NeNJd3NbRuc
+
+Regression
+https://www.youtube.com/watch?v=owZrGPKkrrg
+https://www.youtube.com/watch?v=bOKZayFoYgs&list=PLUenpfvlyoa0rMoE5nXA8kdctBKE9eSob
+
+LDA/GDA
+https://mathformachines.com/posts/discriminant-analysis/
+
+Neural Networks
+https://www.youtube.com/watch?v=H21M3V0ivJs
+https://www.youtube.com/watch?v=IHZwWFHWa-w
+https://www.youtube.com/watch?v=Ilg3gGewQ5U
+https://www.youtube.com/watch?v=tIeHLnjs5U8
+https://www.youtube.com/watch?v=KuXjwB4LzSA
+https://www.youtube.com/watch?v=pj9-rr1wDhM
+
+Bayesian Networks
+https://www.youtube.com/watch?v=TuGDMj43ehw
+https://web.mit.edu/jmn/www/6.034/d-separation.pdf
+
+Gaussian Mixture Models
+https://www.youtube.com/watch?v=e6AE1Ws_nB4
+
+Autoencoders
+https://www.youtube.com/watch?v=hZ4a4NgM3u0
+https://www.youtube.com/watch?v=qJeaCHQ1k2w
+
+Boltzmann Machines
+https://www.youtube.com/watch?v=L3ynnRgpZwg
+https://www.youtube.com/watch?v=_bqa_I5hNAo
+
+Reinforcement Learning
+https://www.youtube.com/watch?v=KovN7WKI9Y0&list=PLUenpfvlyoa0PB6_kqJ9WU7m6i6z1RhfJ	
