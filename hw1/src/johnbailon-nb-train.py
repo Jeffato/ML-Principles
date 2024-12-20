@@ -3,13 +3,13 @@ import numpy as np
 import pandas as pd
 
 # Constant
-dir = 'DiabetesData'
+dir = 'data\DiabetesData'
 readFileName = 'train.csv'
 writeFileName = 'weights'
 saveFlag = False
 
 # Load the dataset
-with open(Path(__file__).resolve().parent / dir / readFileName, 'r') as file: df = pd.read_csv(file)
+with open(Path(__file__).resolve().parent.parent / dir / readFileName, 'r') as file: df = pd.read_csv(file)
 
 # Partition data by variable and disease state (ie glucose/bp and diabetes/no diabetes)
 glucose_pos = df[df['diabetes'] == 1]['glucose']

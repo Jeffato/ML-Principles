@@ -4,7 +4,7 @@ import pandas as pd
 import math
 
 # File path constants
-dir = 'DiabetesData'
+dir = 'data\DiabetesData'
 testDataFile = 'test.csv'
 learnedWeights = 'weights.txt'
 
@@ -53,7 +53,7 @@ class NaiveBayes:
 # Input: file name
 # Output: Array of weights mean_glu_pos, var_glu_pos, mean_glu_neg, var_glu_neg, mean_bp_pos, var_bp_pos, mean_bp_neg, var_bp_neg
 def load_Weights(filepath):
-    with open(Path(__file__).resolve().parent / dir / filepath, 'r') as file: 
+    with open(Path(__file__).resolve().parent.parent / dir / filepath, 'r') as file: 
         data = [line.rstrip() for line in file]
         return data
     
@@ -63,7 +63,7 @@ def main():
     classifier = NaiveBayes(np.array(weights).astype(np.float64))
 
     # Load test data
-    with open(Path(__file__).resolve().parent / dir / testDataFile, 'r') as file: 
+    with open(Path(__file__).resolve().parent.parent / dir / testDataFile, 'r') as file: 
         testData = pd.read_csv(file)
 
     # Evaluate the classifier using test data
