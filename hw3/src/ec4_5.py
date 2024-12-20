@@ -2,7 +2,7 @@ from pathlib import Path
 import numpy as np
 
 # Dirs, Flags, Constants
-dir = Path(__file__).resolve().parent.parent
+dir = Path(__file__).resolve().parent.parent / "data"
 
 saveFlag = False
 

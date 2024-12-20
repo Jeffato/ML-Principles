@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 # Dirs
-p3_data = Path(__file__).resolve().parent.parent / "HW3_data/P3_data/data_2" 
+p3_data = Path(__file__).resolve().parent.parent / "data/P3_data/data_2" 
 
 # Load the dataset
 train_x=np.load(p3_data / "train.npz")["x"]

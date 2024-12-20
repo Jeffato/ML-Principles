@@ -4,10 +4,10 @@ import pandas as pd
 
 # Q4 Dirs and Flags
 dir = Path(__file__).resolve().parent.parent
-saveFlag = True
+saveFlag = False
 ec = True
-ec_file = "spam_ham_ec.csv"
-file = "spam_ham.csv"
+ec_file = "data/spam_ham_ec.csv"
+file = "data/spam_ham.csv"
 
 def pre_process(matrix):
     # SVD

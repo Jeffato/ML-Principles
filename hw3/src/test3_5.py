@@ -4,20 +4,16 @@ import numpy as np
 import pandas as pd
 
 # Dirs, Train from 3_2
-p3_data = Path(__file__).resolve().parent.parent / "HW3_data/P3_data/data_2" 
+p3_data = Path(__file__).resolve().parent.parent / "data/P3_data/data_2" 
 
 class GDA_Classifier:
     def __init__(self):
-        self.mean_pos = np.array([0, 0])
-        self.cov_pos = np.eye(2)
-
-        self.mean_1_neg = np.array([0, 2])
-        self.cov_1_neg  = self.cov_pos = np.eye(2)
-
-        self.mean_2_neg = np.array([0, -2])
-        self.cov_2_neg  = self.cov_pos = np.eye(2)
-
-        self.pos_prior = self.neg_prior = neg_weight = 0.5
+        self.mean_pos = np.array([0.013075402904720767, 0.06295251252263563])
+        self.mean_neg = np.array([-0.023139418380441288, -0.021149522420830142])
+        self.cov_pos = np.array([[0.98285498, 0.00612046], [0.00612046, 1.05782804]])
+        self.cov_neg =  np.array([[ 1.00329037, -0.01142356], [-0.01142356, 4.97693356]])
+        self.pos_prior = 0.5
+        self.neg_prior = 0.5
 
     # Gaussian Distribution
     def mult_gaussian_prob(self, x, mean, cov):
@@ -29,7 +25,7 @@ class GDA_Classifier:
     # Prediction Function
     def predict(self, x):
         pos = self.mult_gaussian_prob(x, self.mean_pos, self.cov_pos) * self.pos_prior
-        neg = (0.5 * self.mult_gaussian_prob(x, self.mean_1_neg, self.cov_1_neg) + 0.5 * self.mult_gaussian_prob(x, self.mean_2_neg, self.cov_2_neg) )* self.neg_prior
+        neg = self.mult_gaussian_prob(x, self.mean_neg, self.cov_neg) * self.neg_prior
 
         if pos > neg : return 1
         else: return -1

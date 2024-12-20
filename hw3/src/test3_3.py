@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 # Dirs, Train from 3_1
-p3_data = Path(__file__).resolve().parent.parent / "HW3_data/P3_data/data_1" 
+p3_data = Path(__file__).resolve().parent.parent / "data/P3_data/data_1" 
 
 class GDA_Classifier:
     def __init__(self, pos_prior, neg_prior):
