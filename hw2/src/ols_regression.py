@@ -8,8 +8,8 @@ polyDegree = 10
 saveFlag = False
 
 # Load test/train data sets
-dir = Path(__file__).resolve().parent.parent / "HW2_data/P3_data"
-save_dir = Path(__file__).resolve().parent.parent / "regressionWeights/regression"
+dir = Path(__file__).resolve().parent.parent / "data/P3_data"
+save_dir = Path(__file__).resolve().parent / "regressionWeights/regression"
 
 train_x=np.load(dir / "train.npz")["x"]
 train_y=np.load(dir / "train.npz")["y"]

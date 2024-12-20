@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 polyDegree = 10
 saveFlag = False
 
-save_dir = Path(__file__).resolve().parent.parent / "regressionWeights/ridge_regression"
+save_dir = Path(__file__).resolve().parent / "regressionWeights/ridge_regression"
 
 # Load test/train data sets
-dir = Path(__file__).resolve().parent.parent / "HW2_data/P3_data"
+dir = Path(__file__).resolve().parent.parent / "data/P3_data"
 
 train_x=np.load(dir / "train.npz")["x"]
 train_y=np.load(dir / "train.npz")["y"]
