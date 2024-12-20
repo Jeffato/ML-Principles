@@ -5,7 +5,7 @@ import numpy as np
 polyDegree = 10
 
 # Train- 100 data points
-dir = Path(__file__).resolve().parent.parent / "HW2_data/P3_data"
+dir = Path(__file__).resolve().parent.parent / "data/P3_data"
 
 # Load test/train data sets
 train_x_100=np.load(dir / "train_100.npz")["x"]

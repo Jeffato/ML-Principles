@@ -58,10 +58,10 @@ def Q1():
         print(f"Rank without column {i}:", reduced_rank)
 
 # Q3 Dirs and Flags
-reg_dir = Path(__file__).resolve().parent.parent / "regressionWeights"
+reg_dir = Path(__file__).resolve().parent / "regressionWeights"
 load_regression = "regression"
 load_ridge_reg =  "ridge_regression/ridge_lambda0.0003.txt"
-dir = Path(__file__).resolve().parent.parent / "HW2_data/P3_data"
+dir = Path(__file__).resolve().parent / "HW2_data/P3_data"
 
 def Q3():
     weight_list = []
@@ -109,13 +109,14 @@ def Q3():
     print(f"MSE for Reg: {mse_ridge_reg}")
 
 # Q4 Dirs and Flags
-train_dir = Path(__file__).resolve().parent.parent / "HW2_data/P4_data/train"
-test_dir  = Path(__file__).resolve().parent.parent / "HW2_data/P4_data/test"
-save_dir = Path(__file__).resolve().parent.parent / "EigenFaces"
+train_dir = Path(__file__).resolve().parent.parent / "data/P4_data/train"
+test_dir  = Path(__file__).resolve().parent.parent / "data/P4_data/test"
+save_dir = Path(__file__).resolve().parent / "EigenFaces"
 
 saveFlag = False
 genTestImagesFlag = True
 displayEigenFlag= False
+display_faces = False
 
 # Q4- EigenFace
 def Q4():
@@ -163,12 +164,10 @@ def Q4():
                 center_image = test_image - mean_image
                 est_image = mean_image + m_eigen_vec @ m_eigen_vec.T @ center_image
 
-                # Display Image
-                constructed_img = Image.fromarray(est_image.reshape(60,80)).convert("L")
-
-                # Display
-                print("Displaying image with M=", num_components)
-                constructed_img.show()
+                if display_faces:
+                    constructed_img = Image.fromarray(est_image.reshape(60,80)).convert("L")
+                    print("Displaying image with M=", num_components)
+                    constructed_img.show()
 
                 # Save the reconstructed image
                 if saveFlag:
@@ -209,7 +208,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Q5 Dirs 
-graph_dir = Path(__file__).resolve().parent.parent / "HW2_data/P5_data"
+graph_dir = Path(__file__).resolve().parent.parent / "data/P5_data"
 
 def PCA(matrix):
     # SVD
@@ -253,3 +252,6 @@ def Q5():
     fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), ax=ax)
     ax.scatter(pca_logit[0, :], train_year, c=train_year, cmap=cmap, s=2)
     plt.show()
+
+# if __name__ == '__main__':
+#     Q1()

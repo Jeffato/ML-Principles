@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Q5 Dirs and Flags
-graph_dir = Path(__file__).resolve().parent.parent / "HW2_data/P5_data"
+graph_dir = Path(__file__).resolve().parent.parent / "data/P5_data"
 
 def pre_process(matrix):
     # SVD
